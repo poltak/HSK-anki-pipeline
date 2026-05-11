@@ -1,0 +1,21 @@
+{
+  "name": "@poltak/chinese-learning-pipeline",
+  "version": "1.0.0",
+  "description": "Vietnamese-first Anki deck generation pipeline for New HSK 3.0 study.",
+  "main": "index.js",
+  "scripts": {
+    "import:hsk": "node src/cli.js import:hsk",
+    "import:hsk-api": "node src/cli.js import:hsk-api",
+    "enrich:vi": "node src/cli.js enrich:vi",
+    "generate:sentences": "node src/cli.js generate:sentences",
+    "generate:audio": "node src/cli.js generate:audio",
+    "qa": "node src/cli.js qa",
+    "export:anki": "node src/cli.js export:anki",
+    "build:deck": "node src/cli.js build:deck",
+    "test": "node src/cli.js qa --levels 2"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

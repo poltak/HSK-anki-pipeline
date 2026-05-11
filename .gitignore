@@ -1,0 +1,13 @@
+# Generated deck artifacts
+/audio/
+/dist/
+/reports/
+
+# Pipeline caches generated from source/API input
+/data/generated/
+/data/official/
+
+# Local/editor noise
+.DS_Store
+node_modules/
+npm-debug.log*
