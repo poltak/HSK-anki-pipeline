@@ -1,0 +1,42 @@
+{
+  "学习": {
+    "sentenceZh": "我每天学习中文。",
+    "sentencePinyin": "Wǒ měitiān xuéxí Zhōngwén.",
+    "sentenceVi": "Tôi học tiếng Trung mỗi ngày.",
+    "sentenceEn": "I study Chinese every day.",
+    "reviewStatus": "reviewed",
+    "qaWarnings": []
+  },
+  "老师": {
+    "sentenceZh": "老师说得很慢。",
+    "sentencePinyin": "Lǎoshī shuō de hěn màn.",
+    "sentenceVi": "Giáo viên nói rất chậm.",
+    "sentenceEn": "The teacher speaks very slowly.",
+    "reviewStatus": "reviewed",
+    "qaWarnings": []
+  },
+  "时间": {
+    "sentenceZh": "你有时间吗？",
+    "sentencePinyin": "Nǐ yǒu shíjiān ma?",
+    "sentenceVi": "Bạn có thời gian không?",
+    "sentenceEn": "Do you have time?",
+    "reviewStatus": "reviewed",
+    "qaWarnings": []
+  },
+  "准备": {
+    "sentenceZh": "我准备去学校。",
+    "sentencePinyin": "Wǒ zhǔnbèi qù xuéxiào.",
+    "sentenceVi": "Tôi chuẩn bị đi đến trường.",
+    "sentenceEn": "I am preparing to go to school.",
+    "reviewStatus": "reviewed",
+    "qaWarnings": []
+  },
+  "注意": {
+    "sentenceZh": "请注意安全。",
+    "sentencePinyin": "Qǐng zhùyì ānquán.",
+    "sentenceVi": "Hãy chú ý an toàn.",
+    "sentenceEn": "Please pay attention to safety.",
+    "reviewStatus": "reviewed",
+    "qaWarnings": []
+  }
+}

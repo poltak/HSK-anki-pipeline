@@ -1,0 +1,42 @@
+{
+  "学习": {
+    "targetVi": "học; học tập",
+    "targetEn": "to study; to learn",
+    "hanViet": "học tập",
+    "memoryNote": "Gần với tiếng Việt 'học tập'.",
+    "reviewStatus": "reviewed",
+    "qaWarnings": []
+  },
+  "老师": {
+    "targetVi": "giáo viên; thầy/cô giáo",
+    "targetEn": "teacher",
+    "hanViet": "lão sư",
+    "memoryNote": "'Lão sư' không phải cách gọi tự nhiên trong tiếng Việt hiện đại.",
+    "reviewStatus": "reviewed",
+    "qaWarnings": []
+  },
+  "时间": {
+    "targetVi": "thời gian",
+    "targetEn": "time",
+    "hanViet": "thời gian",
+    "memoryNote": "Khớp trực tiếp với tiếng Việt 'thời gian'.",
+    "reviewStatus": "reviewed",
+    "qaWarnings": []
+  },
+  "准备": {
+    "targetVi": "chuẩn bị",
+    "targetEn": "to prepare",
+    "hanViet": "chuẩn bị",
+    "memoryNote": "Khớp trực tiếp với tiếng Việt 'chuẩn bị'.",
+    "reviewStatus": "reviewed",
+    "qaWarnings": []
+  },
+  "注意": {
+    "targetVi": "chú ý; để ý",
+    "targetEn": "to pay attention",
+    "hanViet": "chú ý",
+    "memoryNote": "Khớp tốt với tiếng Việt 'chú ý'.",
+    "reviewStatus": "reviewed",
+    "qaWarnings": []
+  }
+}
