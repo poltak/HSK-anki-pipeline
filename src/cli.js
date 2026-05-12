@@ -46,13 +46,15 @@ async function main() {
   }
 
   if (command === "generate:audio") {
-    console.log(generateAudio({
+    console.log(await generateAudio({
       levels,
       force: Boolean(args.force),
-      voice: args.voice || "Tingting",
+      provider: args.provider || "local",
+      voice: args.voice,
       skip: Boolean(args.skip),
-      timeoutMs: Number(args["audio-timeout-ms"] || 15000),
+      timeoutMs: Number(args["audio-timeout-ms"] || (args.provider === "azure" ? 30000 : 15000)),
       verbose: args.verbose !== false,
+      maxItems: args["max-items"] ? Number(args["max-items"]) : undefined,
     }));
     return;
   }
@@ -77,13 +79,15 @@ async function main() {
     }
     console.log(enrichVietnamese({ levels }));
     console.log(generateExampleSentences({ levels }));
-    console.log(generateAudio({
+    console.log(await generateAudio({
       levels,
       force: Boolean(args.force),
-      voice: args.voice || "Tingting",
+      provider: args.provider || "local",
+      voice: args.voice,
       skip: Boolean(args["skip-audio"]),
-      timeoutMs: Number(args["audio-timeout-ms"] || 15000),
+      timeoutMs: Number(args["audio-timeout-ms"] || (args.provider === "azure" ? 30000 : 15000)),
       verbose: args.verbose !== false,
+      maxItems: args["max-items"] ? Number(args["max-items"]) : undefined,
     }));
     const qa = runQa({ levels });
     console.log(qa);
@@ -105,7 +109,8 @@ Usage:
   npm run enrich:vi -- --levels 2
   npm run generate:sentences -- --levels 2
   npm run export:sentence-prompts -- --levels 2 --out reports/sentence_prompts.jsonl
-  npm run generate:audio -- --levels 2
+  npm run generate:audio -- --levels 2 --provider local
+  npm run generate:audio -- --levels 2 --provider azure --voice zh-CN-XiaoxiaoNeural
   npm run qa -- --levels 2
   npm run export:anki -- --levels 2 --out dist/new_hsk_3_0_level_2.tsv
   npm run build:deck -- --source sources/new_hsk_3_0_level_2_seed.csv --levels 2 --skip-audio --allow-invalid

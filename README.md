@@ -26,7 +26,7 @@ reports/qa_warnings.json
 On macOS, the local provider uses `say` with the `Tingting` voice. If `ffmpeg` is installed, it converts to MP3.
 
 ```bash
-npm run build:deck -- --source sources/new_hsk_3_0_level_2_seed.csv --levels 2
+npm run build:deck -- --source sources/new_hsk_3_0_level_2_seed.csv --levels 2 --provider local
 ```
 
 Audio files are written to:
@@ -41,7 +41,7 @@ For full API imports, build the text deck first, then generate audio separately 
 
 ```bash
 npm run build:deck -- --api --levels 2 --skip-audio --allow-invalid --out dist/new_hsk_3_0_level_2_api.tsv
-npm run generate:audio -- --levels 2 --audio-timeout-ms 15000
+npm run generate:audio -- --levels 2 --provider local --audio-timeout-ms 15000
 npm run qa -- --levels 2
 npm run export:anki -- --levels 2 --out dist/new_hsk_3_0_level_2_api.tsv
 ```
@@ -57,7 +57,43 @@ say -v '?' | grep zh_CN
 Pass a different voice with:
 
 ```bash
-npm run generate:audio -- --levels 2 --voice Tingting --force
+npm run generate:audio -- --levels 2 --provider local --voice Tingting --force
+```
+
+## With Azure Speech Audio
+
+Set these environment variables before running Azure synthesis:
+
+```bash
+export AZURE_SPEECH_KEY="your-speech-resource-key"
+export AZURE_SPEECH_REGION="your-speech-resource-region"
+```
+
+Generate audio with Azure:
+
+```bash
+npm run generate:audio -- --levels 2 --provider azure --voice zh-CN-XiaoxiaoNeural --force
+```
+
+Test only the first few notes while trying credentials or voices:
+
+```bash
+npm run generate:audio -- --levels 2 --provider azure --voice zh-CN-XiaoxiaoNeural --force --max-items 3
+```
+
+Other Mandarin voices to try:
+
+```txt
+zh-CN-XiaoxiaoNeural
+zh-CN-XiaoyiNeural
+zh-CN-YunxiNeural
+zh-CN-YunjianNeural
+```
+
+The Azure provider writes the same MP3 filenames as the local provider, so after regenerating audio you only need to export/import the TSV again if the media manifest changed:
+
+```bash
+npm run export:anki -- --levels 2 --out dist/new_hsk_3_0_level_2_api.tsv
 ```
 
 ## Source CSV
