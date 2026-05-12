@@ -35,10 +35,17 @@ function validateLevel(level) {
     if (enriched && enriched.reviewStatus !== "reviewed") warnings.push({ level, itemId: item.id, severity: "warning", code: "enrichment_not_reviewed" });
 
     if (!sentence) warnings.push({ level, itemId: item.id, severity: "fatal", code: "missing_sentence" });
+    if (sentence && !sentence.sentenceZh) warnings.push({ level, itemId: item.id, severity: "fatal", code: "missing_sentence_chinese" });
     if (sentence && !sentence.sentenceZh.includes(item.word)) warnings.push({ level, itemId: item.id, severity: "fatal", code: "sentence_missing_target_word" });
-    if (sentence && !sentence.sentencePinyin) warnings.push({ level, itemId: item.id, severity: "warning", code: "missing_sentence_pinyin" });
-    if (sentence && !sentence.sentenceVi) warnings.push({ level, itemId: item.id, severity: "warning", code: "missing_sentence_vietnamese" });
-    if (sentence && sentence.reviewStatus !== "reviewed") warnings.push({ level, itemId: item.id, severity: "warning", code: "sentence_not_reviewed" });
+    if (sentence && sentence.qaWarnings && sentence.qaWarnings.includes("placeholder_example_sentence")) {
+      warnings.push({ level, itemId: item.id, severity: "fatal", code: "placeholder_example_sentence" });
+    }
+    if (sentence && sentence.qaWarnings && sentence.qaWarnings.includes("missing_reviewed_example_sentence")) {
+      warnings.push({ level, itemId: item.id, severity: "fatal", code: "missing_reviewed_example_sentence" });
+    }
+    if (sentence && !sentence.sentencePinyin) warnings.push({ level, itemId: item.id, severity: "fatal", code: "missing_sentence_pinyin" });
+    if (sentence && !sentence.sentenceVi) warnings.push({ level, itemId: item.id, severity: "fatal", code: "missing_sentence_vietnamese" });
+    if (sentence && sentence.reviewStatus !== "reviewed") warnings.push({ level, itemId: item.id, severity: "fatal", code: "sentence_not_reviewed" });
 
     if (!audio) {
       warnings.push({ level, itemId: item.id, severity: "warning", code: "missing_audio_manifest" });

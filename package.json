@@ -8,6 +8,7 @@
     "import:hsk-api": "node src/cli.js import:hsk-api",
     "enrich:vi": "node src/cli.js enrich:vi",
     "generate:sentences": "node src/cli.js generate:sentences",
+    "export:sentence-prompts": "node src/cli.js export:sentence-prompts",
     "generate:audio": "node src/cli.js generate:audio",
     "qa": "node src/cli.js qa",
     "export:anki": "node src/cli.js export:anki",

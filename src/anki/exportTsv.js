@@ -39,8 +39,9 @@ function buildTags(item, enrichment) {
   ].filter(Boolean).join(" ");
 }
 
-function exportTsv({ levels = [2], out }) {
+function exportTsv({ levels = [2], out, allowDraft = false }) {
   const rows = [];
+  const blockers = [];
 
   for (const level of levels) {
     const officialItems = readJson(path.join(paths.official, `level_${level}_items.json`), []);
@@ -56,6 +57,13 @@ function exportTsv({ levels = [2], out }) {
       const enrichment = enrichedById.get(item.id) || {};
       const sentence = sentenceById.get(item.id) || {};
       const audio = audioById.get(item.id) || {};
+
+      if (!allowDraft) {
+        if (!sentence.sentenceZh) blockers.push(`${item.id} ${item.word}: missing Chinese sentence`);
+        if (sentence.reviewStatus !== "reviewed") blockers.push(`${item.id} ${item.word}: sentence is not reviewed`);
+        if (sentence.qaWarnings && sentence.qaWarnings.length > 0) blockers.push(`${item.id} ${item.word}: ${sentence.qaWarnings.join(", ")}`);
+      }
+
       rows.push({
         TargetHanzi: item.word,
         TargetPinyin: item.pinyin,
@@ -76,6 +84,14 @@ function exportTsv({ levels = [2], out }) {
         Tags: buildTags(item, enrichment),
       });
     }
+  }
+
+  if (blockers.length > 0) {
+    throw new Error([
+      `Refusing to export ${blockers.length} draft/invalid sentence rows.`,
+      "Fix sentence overrides or pass --allow-draft-export if you really want draft output.",
+      blockers.slice(0, 10).join("\n"),
+    ].join("\n"));
   }
 
   const outputPath = path.resolve(paths.root, out || path.join("dist", `new_hsk_3_0_level_${levels.join("_")}.tsv`));

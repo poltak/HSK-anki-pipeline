@@ -6,13 +6,13 @@ function defaultSentence(item, enrichment) {
   return {
     officialItemId: item.id,
     targetHanzi: item.word,
-    sentenceZh: `我学习${item.word}。`,
-    sentenceZhBold: `我学习<b>${item.word}</b>。`,
+    sentenceZh: "",
+    sentenceZhBold: "",
     sentencePinyin: "",
-    sentenceVi: enrichment.targetVi ? `Tôi học từ "${enrichment.targetVi}".` : "",
-    sentenceEn: enrichment.targetEn ? `I study "${enrichment.targetEn}".` : "",
+    sentenceVi: "",
+    sentenceEn: "",
     reviewStatus: "needs_review",
-    qaWarnings: ["placeholder_example_sentence"],
+    qaWarnings: ["missing_reviewed_example_sentence"],
   };
 }
 
@@ -27,7 +27,7 @@ function generateExampleSentences({ levels = [2] }) {
 
     const sentences = officialItems.map((item) => {
       const enrichment = enrichmentById.get(item.id) || {};
-      const override = sentenceOverrides[item.word] || {};
+      const override = sentenceOverrides[item.id] || sentenceOverrides[item.word] || {};
       const generated = defaultSentence(item, enrichment);
       const sentenceZh = override.sentenceZh || generated.sentenceZh;
       return {
@@ -36,7 +36,7 @@ function generateExampleSentences({ levels = [2] }) {
         officialItemId: item.id,
         targetHanzi: item.word,
         sentenceZh,
-        sentenceZhBold: override.sentenceZhBold || sentenceZh.replace(item.word, `<b>${item.word}</b>`),
+        sentenceZhBold: override.sentenceZhBold || (sentenceZh ? sentenceZh.replace(item.word, `<b>${item.word}</b>`) : ""),
       };
     });
 

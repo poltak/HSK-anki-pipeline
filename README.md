@@ -97,6 +97,28 @@ npm run build:deck -- --api --levels 2 --skip-audio --allow-invalid --out dist/n
 
 The API is convenient, but the official syllabus PDF is still the more archival source. Treat API imports as pinned source snapshots and keep the response hash.
 
+## Sentence Generation
+
+The pipeline no longer exports fallback sentences. Missing or unreviewed sentences are fatal QA errors.
+
+Export prompts for missing sentences:
+
+```bash
+npm run export:sentence-prompts -- --levels 2 --out reports/sentence_prompts.jsonl
+```
+
+Put reviewed results into:
+
+```txt
+data/overrides/sentence_overrides.json
+```
+
+Then regenerate the sentence cache:
+
+```bash
+npm run generate:sentences -- --levels 2
+```
+
 ## Manual Review
 
 Generated data is cached separately from official data:

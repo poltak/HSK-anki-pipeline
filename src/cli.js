@@ -4,6 +4,7 @@ const { importHskCsv } = require("./import/importHskCsv");
 const { importHskMockApi } = require("./import/importHskMockApi");
 const { enrichVietnamese } = require("./enrich/enrichVietnamese");
 const { generateExampleSentences } = require("./sentences/generateExampleSentences");
+const { exportSentencePrompts } = require("./sentences/exportSentencePrompts");
 const { generateAudio } = require("./audio/generateAudio");
 const { runQa } = require("./qa/runQa");
 const { exportTsv } = require("./anki/exportTsv");
@@ -39,6 +40,11 @@ async function main() {
     return;
   }
 
+  if (command === "export:sentence-prompts") {
+    console.log(exportSentencePrompts({ levels, out: args.out }));
+    return;
+  }
+
   if (command === "generate:audio") {
     console.log(generateAudio({
       levels,
@@ -59,7 +65,7 @@ async function main() {
   }
 
   if (command === "export:anki") {
-    console.log(exportTsv({ levels, out: args.out }));
+    console.log(exportTsv({ levels, out: args.out, allowDraft: Boolean(args["allow-draft-export"]) }));
     return;
   }
 
@@ -84,7 +90,7 @@ async function main() {
     if (qa.fatalCount > 0 && !args["allow-invalid"]) {
       throw new Error("Fatal QA errors found. Re-run with --allow-invalid to export anyway.");
     }
-    console.log(exportTsv({ levels, out: args.out }));
+    console.log(exportTsv({ levels, out: args.out, allowDraft: Boolean(args["allow-draft-export"]) }));
     return;
   }
 
@@ -98,6 +104,7 @@ Usage:
   npm run import:hsk-api -- --levels 2
   npm run enrich:vi -- --levels 2
   npm run generate:sentences -- --levels 2
+  npm run export:sentence-prompts -- --levels 2 --out reports/sentence_prompts.jsonl
   npm run generate:audio -- --levels 2
   npm run qa -- --levels 2
   npm run export:anki -- --levels 2 --out dist/new_hsk_3_0_level_2.tsv
